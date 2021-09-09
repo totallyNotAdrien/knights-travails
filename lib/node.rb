@@ -10,9 +10,9 @@ class Node
 
   def potential_moves
     moves = []
-    diffs = [[1, 2], [2, 1],
+    diffs = [[2, 1], [1, 2],
              [-1, 2], [-2, 1],
-             [-1, -2], [-2, -1],
+             [-2, -1], [-1, -2],
              [1, -2], [2, -1]]
     diffs.each do |diff|
       y = @position[0] + diff[0]
