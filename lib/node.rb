@@ -8,8 +8,8 @@ class Node
     @board_cols = board_cols
   end
 
-  def potential_moves
-    moves = []
+  def moves
+    output = []
     diffs = [[2, 1], [1, 2],
              [-1, 2], [-2, 1],
              [-2, -1], [-1, -2],
@@ -17,8 +17,8 @@ class Node
     diffs.each do |diff|
       y = @position[0] + diff[0]
       x = @position[1] + diff[1]
-      moves << [y, x] if y.between?(0, @board_rows) && x.between?(0, @board_cols)
+      output << [y, x] if y.between?(0, @board_rows) && x.between?(0, @board_cols)
     end
-    moves
+    output
   end
 end
