@@ -1,26 +1,16 @@
 class Knight
-  attr_reader :visited, :position, :moves, :board_rows, :board_cols
+  attr_reader :position, :moves, :board_rows, :board_cols, :parent
 
-  def initialize(x_pos, y_pos, board_rows, board_cols)
-    @position = [y_pos, x_pos]
-    @visited = false
+  def initialize(row, col, board_rows, board_cols, parent = nil)
+    @position = [row, col]
     @board_rows = board_rows
     @board_cols = board_cols
     @moves = setup_moves
-    @parent = nil
-  end
-
-  def reset
-    @visited = false
-  end
-
-  def visit(from_knight)
-    @visited = true
-    @parent = from_knight
+    @parent = parent
   end
 
   def ==(other)
-    @position == other.position && 
+    @position == other.position &&
     @board_rows == other.board_rows &&
     @board_cols == other.board_cols
   end

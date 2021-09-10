@@ -1,40 +1,37 @@
 require_relative "knight.rb"
 
 class Board
-  attr_accessor :board
+  attr_reader :rows, :cols
 
   def initialize(rows = 8, cols = 8)
-    @board = Array.new(rows) { Array.new(cols) }
-
-    @board.each_index do |j|
-      @board[j].each_index do |i|
-        @board[j][i] = Knight.new(i,j,rows,cols)
-      end
-    end
-  end
-
-  def [](index)
-    @board[index]
+    @rows = rows
+    @cols = cols
   end
 
   def knight_moves(start, destination)
     visited = []
     queue = []
-    curr = board[start[0]][start[1]]
+
+    curr = Knight.new(start[0], start[1], @rows, @cols)
+
     until curr.position == destination
-      visited << curr
-      curr.visit
-      curr.moves.each do |(y,x)|
-        node = board[y][x]
-        queue << [y,x] unless node.visited
+      visited << curr unless visited.include?(curr)
+
+      curr.moves.each do |(y, x)|
+        knight = Knight.new(y, x, rows, cols, curr)
+        queue << knight unless visited.include?(knight) || queue.include?(knight)
       end
-#--------------------------------------------
-      pos = queue.shift
-      y = pos[0]
-      x = pos[1]
-      curr = board[y][x]
+
+      curr = queue.shift
     end
+
+    path = []
+    while curr.parent
+      path << curr.position
+      curr = curr.parent
+    end
+
+    path << curr.position
+    path.reverse
   end
-
-
 end
