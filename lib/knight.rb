@@ -1,5 +1,5 @@
-class Node
-  attr_reader :visited, :position, :moves
+class Knight
+  attr_reader :visited, :position, :moves, :board_rows, :board_cols
 
   def initialize(x_pos, y_pos, board_rows, board_cols)
     @position = [y_pos, x_pos]
@@ -7,14 +7,22 @@ class Node
     @board_rows = board_rows
     @board_cols = board_cols
     @moves = setup_moves
+    @parent = nil
   end
 
   def reset
     @visited = false
   end
 
-  def visit
+  def visit(from_knight)
     @visited = true
+    @parent = from_knight
+  end
+
+  def ==(other)
+    @position == other.position && 
+    @board_rows == other.board_rows &&
+    @board_cols == other.board_cols
   end
 
   private

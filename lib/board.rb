@@ -1,4 +1,4 @@
-require_relative "node.rb"
+require_relative "knight.rb"
 
 class Board
   attr_accessor :board
@@ -8,7 +8,7 @@ class Board
 
     @board.each_index do |j|
       @board[j].each_index do |i|
-        @board[j][i] = Node.new(i,j,rows,cols)
+        @board[j][i] = Knight.new(i,j,rows,cols)
       end
     end
   end
