@@ -16,4 +16,25 @@ class Board
   def [](index)
     @board[index]
   end
+
+  def knight_moves(start, destination)
+    visited = []
+    queue = []
+    curr = board[start[0]][start[1]]
+    until curr.position == destination
+      visited << curr
+      curr.visit
+      curr.moves.each do |(y,x)|
+        node = board[y][x]
+        queue << [y,x] unless node.visited
+      end
+#--------------------------------------------
+      pos = queue.shift
+      y = pos[0]
+      x = pos[1]
+      curr = board[y][x]
+    end
+  end
+
+
 end
